@@ -162,18 +162,18 @@ a.meili-hit-thumb:hover { opacity: 0.85; }
           var snippet = bind.components.Snippet({ hit: hit, attribute: 'text' });
           if (showImages && hit.image_url) {
             return bind.html`
-              <div class="meili-hit">
-                <a href="${hit.image_url}" target="_blank" class="meili-hit-thumb">
-                  <img src="${hit.image_url}" alt=${'pagina ' + hit.page_number} loading="lazy">
+              <div class="meili-hit" style="display:flex;flex-direction:row;align-items:flex-start;gap:1.2em;border:1px solid #e0e0e0;border-radius:6px;padding:1em;margin-bottom:1em;background:#fff;">
+                <a href="${hit.image_url}" target="_blank" style="flex-shrink:0;display:block;width:120px;">
+                  <img src="${hit.image_url}" alt=${'pagina ' + hit.page_number} loading="lazy" style="width:120px;height:auto;border:1px solid #ddd;border-radius:3px;display:block;">
                 </a>
-                <div class="meili-hit-body">
-                  <h3><a href="${hit.image_url}" target="_blank">${title}</a></h3>
-                  <p>${snippet}</p>
+                <div class="meili-hit-body" style="flex:1;min-width:0;">
+                  <h3 style="margin:0 0 0.4em;font-size:1em;"><a href="${hit.image_url}" target="_blank" style="text-decoration:none;color:#333;">${title}</a></h3>
+                  <p style="margin:0;font-size:0.88em;color:#555;line-height:1.6;">${snippet}</p>
                 </div>
               </div>`;
           }
           return bind.html`
-            <div class="meili-hit">
+            <div class="meili-hit" style="border:1px solid #e0e0e0;border-radius:6px;padding:1em;margin-bottom:1em;background:#fff;">
               <div class="meili-hit-body">
                 <h3>${title}</h3>
                 <p>${snippet}</p>
