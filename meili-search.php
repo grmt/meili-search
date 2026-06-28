@@ -149,15 +149,21 @@ add_shortcode('meili_search', function ($atts) {
       container: '#' + uid + '-hits',
       templates: {
         item: function (hit, bind) {
-          var img = (showImages && hit.image_url)
-            ? '<img src="' + bind.html([hit.image_url]) + '" alt="pagina ' + hit.page_number + '" loading="lazy">'
-            : '';
           var title = (hit.production ? hit.production : hit.id) +
                       (hit.page_number ? ' — pagina ' + hit.page_number : '');
           var snippet = bind.components.Snippet({ hit: hit, attribute: 'text' });
+          if (showImages && hit.image_url) {
+            return bind.html`
+              <div class="meili-hit">
+                <img src="${hit.image_url}" alt=${'pagina ' + hit.page_number} loading="lazy">
+                <div class="meili-hit-body">
+                  <h3>${title}</h3>
+                  <p>${snippet}</p>
+                </div>
+              </div>`;
+          }
           return bind.html`
             <div class="meili-hit">
-              ${bind.html([img])}
               <div class="meili-hit-body">
                 <h3>${title}</h3>
                 <p>${snippet}</p>
