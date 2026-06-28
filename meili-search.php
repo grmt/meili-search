@@ -90,7 +90,9 @@ add_shortcode('meili_search', function ($atts) {
 .meili-search-wrap { max-width: 960px; margin: 0 auto; }
 .meili-stats       { color: #666; font-size: 0.85em; margin: 0.5em 0 1em; }
 .meili-hit {
-  display: flex;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
   gap: 1.2em;
   border: 1px solid #e0e0e0;
   border-radius: 6px;
