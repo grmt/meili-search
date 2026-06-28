@@ -83,8 +83,8 @@ add_shortcode('meili_search', function ($atts) {
 </div>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@8/themes/satellite-min.css">
-<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
-<script src="https://cdn.jsdelivr.net/npm/@meilisearch/instant-meilisearch@0.19"></script>
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@meilisearch/instant-meilisearch@0.19/dist/instant-meilisearch.umd.js"></script>
 
 <style>
 .meili-search-wrap { max-width: 960px; margin: 0 auto; }
@@ -118,7 +118,7 @@ add_shortcode('meili_search', function ($atts) {
   var uid        = <?php echo json_encode($uid); ?>;
   var showImages = <?php echo $show_img ? 'true' : 'false'; ?>;
 
-  var searchClient = MeiliSearch.instantMeiliSearch(
+  var searchClient = instantMeiliSearch(
     <?php echo json_encode($url); ?>,
     <?php echo json_encode($key); ?>
   ).searchClient;
