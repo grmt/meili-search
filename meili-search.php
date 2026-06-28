@@ -89,36 +89,32 @@ add_shortcode('meili_search', function ($atts) {
 <style>
 .meili-search-wrap { max-width: 960px; margin: 0 auto; }
 .meili-stats       { color: #666; font-size: 0.85em; margin: 0.5em 0 1em; }
-.meili-hit {
-  display: flex !important;
-  flex-direction: row !important;
+.meili-search-wrap .ais-Hits-item {
   align-items: flex-start !important;
-  gap: 1.2em;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  padding: 1em;
-  margin-bottom: 1em;
-  background: #fff;
+  gap: 1.2em !important;
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 6px !important;
+  padding: 1em !important;
+  background: #fff !important;
 }
-.meili-hit img {
+.meili-search-wrap .ais-Hits-item img {
   width: 120px !important;
-  min-width: 120px !important;
   max-width: 120px !important;
   height: auto !important;
   border: 1px solid #ddd;
   border-radius: 3px;
   object-fit: contain;
-  align-self: flex-start;
   flex-shrink: 0;
+  display: block !important;
 }
-a.meili-hit-thumb { flex-shrink: 0; display: block !important; width: 120px; }
-a.meili-hit-thumb:hover { opacity: 0.85; }
-.meili-hit-body  { flex: 1; min-width: 0; }
-.meili-hit-body a { text-decoration: none; color: inherit; }
-.meili-hit-body a:hover { text-decoration: underline; }
-.meili-hit h3    { margin: 0 0 0.4em; font-size: 1em; color: #333; }
-.meili-hit p     { margin: 0; font-size: 0.88em; color: #555; line-height: 1.6; }
-.meili-hit em    { background: #fff3b0; font-style: normal; padding: 0 2px; border-radius: 2px; }
+.meili-search-wrap .ais-Hits-item a.meili-thumb { flex-shrink: 0 !important; display: block !important; width: 120px !important; }
+.meili-search-wrap .ais-Hits-item a.meili-thumb:hover { opacity: 0.85; }
+.meili-search-wrap .ais-Hits-item .meili-body { flex: 1 !important; min-width: 0 !important; }
+.meili-search-wrap .ais-Hits-item .meili-body a { text-decoration: none; color: #333; }
+.meili-search-wrap .ais-Hits-item .meili-body a:hover { text-decoration: underline; }
+.meili-search-wrap .ais-Hits-item h3 { margin: 0 0 0.4em !important; font-size: 1em !important; }
+.meili-search-wrap .ais-Hits-item p  { margin: 0 !important; font-size: 0.88em; color: #555; line-height: 1.6; }
+.meili-search-wrap .ais-Hits-item em { background: #fff3b0; font-style: normal; padding: 0 2px; border-radius: 2px; }
 </style>
 
 <script>
@@ -161,24 +157,9 @@ a.meili-hit-thumb:hover { opacity: 0.85; }
                       (hit.page_number ? ' — pagina ' + hit.page_number : '');
           var snippet = bind.components.Snippet({ hit: hit, attribute: 'text' });
           if (showImages && hit.image_url) {
-            return bind.html`
-              <div class="meili-hit" style="display:flex;flex-direction:row;align-items:flex-start;gap:1.2em;border:1px solid #e0e0e0;border-radius:6px;padding:1em;margin-bottom:1em;background:#fff;">
-                <a href="${hit.image_url}" target="_blank" style="flex-shrink:0;display:block;width:120px;">
-                  <img src="${hit.image_url}" alt=${'pagina ' + hit.page_number} loading="lazy" style="width:120px;height:auto;border:1px solid #ddd;border-radius:3px;display:block;">
-                </a>
-                <div class="meili-hit-body" style="flex:1;min-width:0;">
-                  <h3 style="margin:0 0 0.4em;font-size:1em;"><a href="${hit.image_url}" target="_blank" style="text-decoration:none;color:#333;">${title}</a></h3>
-                  <p style="margin:0;font-size:0.88em;color:#555;line-height:1.6;">${snippet}</p>
-                </div>
-              </div>`;
+            return bind.html`<a class="meili-thumb" href="${hit.image_url}" target="_blank"><img src="${hit.image_url}" alt=${'pagina ' + hit.page_number} loading="lazy"></a><div class="meili-body"><h3><a href="${hit.image_url}" target="_blank">${title}</a></h3><p>${snippet}</p></div>`;
           }
-          return bind.html`
-            <div class="meili-hit" style="border:1px solid #e0e0e0;border-radius:6px;padding:1em;margin-bottom:1em;background:#fff;">
-              <div class="meili-hit-body">
-                <h3>${title}</h3>
-                <p>${snippet}</p>
-              </div>
-            </div>`;
+          return bind.html`<div class="meili-body"><h3>${title}</h3><p>${snippet}</p></div>`;
         },
         empty: function () { return ''; },
       },
