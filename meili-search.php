@@ -107,7 +107,7 @@ add_shortcode('meili_search', function ($atts) {
   flex-shrink: 0;
   display: block !important;
 }
-.meili-search-wrap .ais-Hits-item a.meili-thumb { flex-shrink: 0 !important; display: block !important; width: 120px !important; }
+.meili-search-wrap .ais-Hits-item a.meili-thumb { flex-shrink: 0 !important; display: block !important; width: 120px !important; font-size: 0; line-height: 0; }
 .meili-search-wrap .ais-Hits-item a.meili-thumb:hover { opacity: 0.85; }
 .meili-search-wrap .ais-Hits-item .meili-body { flex: 1 !important; min-width: 0 !important; }
 .meili-search-wrap .ais-Hits-item .meili-body a { text-decoration: none; color: #333; }
@@ -155,11 +155,21 @@ add_shortcode('meili_search', function ($atts) {
         item: function (hit, bind) {
           var title = (hit.production ? hit.production : hit.id) +
                       (hit.page_number ? ' — pagina ' + hit.page_number : '');
-          var snippet = bind.components.Snippet({ hit: hit, attribute: 'text' });
-          if (showImages && hit.image_url) {
-            return bind.html`<a class="meili-thumb" href="${hit.image_url}" target="_blank"><img src="${hit.image_url}" alt=${'pagina ' + hit.page_number} loading="lazy"></a><div class="meili-body"><h3><a href="${hit.image_url}" target="_blank">${title}</a></h3><p>${snippet}</p></div>`;
+          var snippetHtml = (hit._snippetResult && hit._snippetResult.text)
+            ? hit._snippetResult.text.value
+            : (hit.text ? hit.text.substring(0, 200) + '…' : '');
+          var url = hit.image_url || '';
+          var pageNum = hit.page_number || '';
+          if (showImages && url) {
+            return '<a class="meili-thumb" href="' + url + '" target="_blank">'
+              + '<img src="' + url + '" alt="pagina ' + pageNum + '" loading="lazy">'
+              + '</a>'
+              + '<div class="meili-body">'
+              + '<h3><a href="' + url + '" target="_blank">' + title + '</a></h3>'
+              + '<p>' + snippetHtml + '</p>'
+              + '</div>';
           }
-          return bind.html`<div class="meili-body"><h3>${title}</h3><p>${snippet}</p></div>`;
+          return '<div class="meili-body"><h3>' + title + '</h3><p>' + snippetHtml + '</p></div>';
         },
         empty: function () { return ''; },
       },
