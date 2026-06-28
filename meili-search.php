@@ -99,13 +99,15 @@ add_shortcode('meili_search', function ($atts) {
   background: #fff;
 }
 .meili-hit img {
-  width: 120px;
-  min-width: 120px;
-  height: auto;
+  width: 120px !important;
+  min-width: 120px !important;
+  max-width: 120px !important;
+  height: auto !important;
   border: 1px solid #ddd;
   border-radius: 3px;
   object-fit: contain;
   align-self: flex-start;
+  flex-shrink: 0;
 }
 .meili-hit-body  { flex: 1; min-width: 0; }
 .meili-hit h3    { margin: 0 0 0.4em; font-size: 1em; color: #333; }
