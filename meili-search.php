@@ -111,7 +111,11 @@ add_shortcode('meili_search', function ($atts) {
   align-self: flex-start;
   flex-shrink: 0;
 }
+a.meili-hit-thumb { flex-shrink: 0; display: block !important; width: 120px; }
+a.meili-hit-thumb:hover { opacity: 0.85; }
 .meili-hit-body  { flex: 1; min-width: 0; }
+.meili-hit-body a { text-decoration: none; color: inherit; }
+.meili-hit-body a:hover { text-decoration: underline; }
 .meili-hit h3    { margin: 0 0 0.4em; font-size: 1em; color: #333; }
 .meili-hit p     { margin: 0; font-size: 0.88em; color: #555; line-height: 1.6; }
 .meili-hit em    { background: #fff3b0; font-style: normal; padding: 0 2px; border-radius: 2px; }
@@ -159,9 +163,11 @@ add_shortcode('meili_search', function ($atts) {
           if (showImages && hit.image_url) {
             return bind.html`
               <div class="meili-hit">
-                <img src="${hit.image_url}" alt=${'pagina ' + hit.page_number} loading="lazy">
+                <a href="${hit.image_url}" target="_blank" class="meili-hit-thumb">
+                  <img src="${hit.image_url}" alt=${'pagina ' + hit.page_number} loading="lazy">
+                </a>
                 <div class="meili-hit-body">
-                  <h3>${title}</h3>
+                  <h3><a href="${hit.image_url}" target="_blank">${title}</a></h3>
                   <p>${snippet}</p>
                 </div>
               </div>`;
